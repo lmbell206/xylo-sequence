@@ -1,0 +1,490 @@
+<!doctype HTML>
+<html>
+<head>
+<title> Sequencer </title>
+<meta name="viewport" content="user-scalable=0">
+</head>
+
+<body>
+<script src = 'synth_library.js'></script>
+<script src="jquery.js"></script>
+<script>
+
+//Global Variables
+var playLoop;
+var noteBank = [];
+var sequencer_status = "paused";
+var step = 1;
+
+
+// User Interface Event Handlers
+
+$(document).ready(function(){
+
+	$("#pad1").on("mousedown", function() {
+		noteToggle(1);
+	});
+	$("#pad2").on("mousedown", function() {
+		noteToggle(2);
+	});
+	$("#pad3").on("mousedown", function() {
+		noteToggle(3);
+	});
+	$("#pad4").on("mousedown", function() {
+		noteToggle(4);
+	});
+	$("#pad5").on("mousedown", function() {
+		noteToggle(5);
+	});
+	$("#pad6").on("mousedown", function() {
+		noteToggle(6);
+	});
+	$("#pad7").on("mousedown", function() {
+		noteToggle(7);
+	});
+	$("#pad8").on("mousedown", function() {
+		noteToggle(8);
+	});
+	$("#pad9").on("mousedown", function() {
+		noteToggle(9);
+	});
+	$("#pad10").on("mousedown", function() {
+		noteToggle(10);
+	});
+	$("#pad11").on("mousedown", function() {
+		noteToggle(11);
+	});
+	$("#pad12").on("mousedown", function() {
+		noteToggle(12);
+	});
+	$("#pad13").on("mousedown", function() {
+		noteToggle(13);
+	});
+	$("#pad14").on("mousedown", function() {
+		noteToggle(14);
+	});
+	$("#pad15").on("mousedown", function() {
+		noteToggle(15);
+	});
+	$("#pad16").on("mousedown", function() {
+		noteToggle(16);
+	});
+	$("#pad17").on("mousedown", function() {
+		noteToggle(17);
+	});
+	$("#pad18").on("mousedown", function() {
+		noteToggle(18);
+	});
+	$("#pad19").on("mousedown", function() {
+		noteToggle(19);
+	});
+	$("#pad20").on("mousedown", function() {
+		noteToggle(20);
+	});
+	$("#pad21").on("mousedown", function() {
+		noteToggle(21);
+	});
+	$("#pad22").on("mousedown", function() {
+		noteToggle(22);
+	});
+	$("#pad23").on("mousedown", function() {
+		noteToggle(23);
+	});
+	$("#pad24").on("mousedown", function() {
+		noteToggle(24);
+	});
+	$("#pad25").on("mousedown", function() {
+		noteToggle(25);
+	});
+	$("#pad26").on("mousedown", function() {
+		noteToggle(26);
+	});
+	$("#pad27").on("mousedown", function() {
+		noteToggle(27);
+	});
+	$("#pad28").on("mousedown", function() {
+		noteToggle(28);
+	});
+	$("#pad29").on("mousedown", function() {
+		noteToggle(29);
+	});
+	$("#pad30").on("mousedown", function() {
+		noteToggle(30);
+	});
+	$("#pad31").on("mousedown", function() {
+		noteToggle(31);
+	});
+	$("#pad32").on("mousedown", function() {
+		noteToggle(32);
+	});
+	$("#pad33").on("mousedown", function() {
+		noteToggle(33);
+	});
+	$("#pad34").on("mousedown", function() {
+		noteToggle(34);
+	});
+	$("#pad35").on("mousedown", function() {
+		noteToggle(35);
+	});
+	$("#pad36").on("mousedown", function() {
+		noteToggle(36);
+	});
+	$("#pad37").on("mousedown", function() {
+		noteToggle(37);
+	});
+	$("#pad38").on("mousedown", function() {
+		noteToggle(38);
+	});
+	$("#pad39").on("mousedown", function() {
+		noteToggle(39);
+	});
+	$("#pad40").on("mousedown", function() {
+		noteToggle(40);
+	});
+	$("#pad41").on("mousedown", function() {
+		noteToggle(41);
+	});
+	$("#pad42").on("mousedown", function() {
+		noteToggle(42);
+	});
+	$("#pad43").on("mousedown", function() {
+		noteToggle(43);
+	});
+	$("#pad44").on("mousedown", function() {
+		noteToggle(44);
+	});
+	$("#pad45").on("mousedown", function() {
+		noteToggle(45);
+	});
+	$("#pad46").on("mousedown", function() {
+		noteToggle(46);
+	});
+	$("#pad47").on("mousedown", function() {
+		noteToggle(47);
+	});
+	$("#pad48").on("mousedown", function() {
+		noteToggle(48);
+	});
+	$("#pad49").on("mousedown", function() {
+		noteToggle(49);
+	});
+	$("#pad50").on("mousedown", function() {
+		noteToggle(50);
+	});
+	$("#pad51").on("mousedown", function() {
+		noteToggle(51);
+	});
+	$("#pad52").on("mousedown", function() {
+		noteToggle(52);
+	});
+	$("#pad53").on("mousedown", function() {
+		noteToggle(53);
+	});
+	$("#pad54").on("mousedown", function() {
+		noteToggle(54);
+	});
+	$("#pad55").on("mousedown", function() {
+		noteToggle(55);
+	});
+	$("#pad56").on("mousedown", function() {
+		noteToggle(56);
+	});
+	$("#pad57").on("mousedown", function() {
+		noteToggle(57);
+	});
+	$("#pad58").on("mousedown", function() {
+		noteToggle(58);
+	});
+	$("#pad59").on("mousedown", function() {
+		noteToggle(59);
+	});
+	$("#pad60").on("mousedown", function() {
+		noteToggle(60);
+	});
+	$("#pad61").on("mousedown", function() {
+		noteToggle(61);
+	});
+	$("#pad62").on("mousedown", function() {
+		noteToggle(62);
+	});
+	$("#pad63").on("mousedown", function() {
+		noteToggle(63);
+	});
+	$("#pad64").on("mousedown", function() {
+		noteToggle(64);
+	});
+	$("#play").on("click", function() {
+		if (sequencer_status == "paused"){
+			var tempo = $("#tempoinput").val();
+			sequencer_status = "playing";
+			playLoop = setInterval(function () {
+				if (step == 9) {
+					step = 1;
+				} 
+				for (i = step * 8 - 7; i <= step * 8; i = i + 1) {
+					playNote(i);
+				};
+	
+				step = step + 1;
+	
+				var steplightid = "#step_light" + step;
+				$(steplightid).animate({
+					opacity:1.0,
+				}, 200, function() {
+					$(steplightid).animate({
+						opacity:.5
+					}, 200);
+				});
+			},tempo);
+		};
+	});
+	$("#pause").on("click", function() {
+		pause();
+	});
+	$("#random").on("click", function() {
+		randomNotes();
+	});
+	$("#randomEvenSteven").on("click", function() {
+		randomNotesEvenSteven();
+	});
+
+});
+
+
+//  Sequencer Functions
+function play(){
+
+	if (sequencer_status == "paused"){
+		var tempo = $("#tempoinput").val();
+		sequencer_status = "playing";
+		playLoop = setInterval(stepPlay,tempo);
+	};
+};
+
+function pause(){
+	sequencer_status = "paused";
+	clearInterval(playLoop);
+
+};
+
+function noteToggle(noteid){
+	if (noteBank[noteid] != "on") {
+		noteBank[noteid] = "on"
+		$("#pad" + noteid).animate({
+			opacity: 1
+		});
+	} else {
+		noteBank[noteid] = "off";
+		$("#pad" + noteid).animate({
+			opacity: .5
+		});
+	};
+};
+
+function stepPlay() {
+	if (step == 9) {
+		step = 1;
+	} 
+	for (i = step * 8 - 7; i <= step * 8; i = i + 1) {
+		playNote(i);
+	};
+	
+	step = step + 1;
+	
+	var steplightid = "#step_light" + step;
+	$(steplightid).animate({
+		opacity:1.0,
+	}, 200, function() {
+		$(steplightid).animate({
+			opacity:.5
+		}, 200);
+	});
+};
+
+function playNote(bank_number) {
+	if (noteBank[bank_number] == "on") {
+		freq = $("#pad"+bank_number+"freq").val();
+		if (bank_number % 8 === 0) {
+			bloopSound(freq);	
+		} else if (bank_number == 7 || bank_number == 15 || bank_number == 23 || bank_number == 31 || bank_number == 39 || bank_number == 47 || bank_number == 55 || bank_number == 63) {
+			sharpBass(freq)
+		} else {
+			dropSound(freq);
+		};
+	};
+};
+
+function randomNumber(min_range, max_range) {
+	return Math.floor((Math.random() * max_range) + min_range);
+};
+
+function randomNotes() {
+	for (i = 1; i < 9 ; i = i + 1) {
+		for (j = i * 8 - 7; j <= i * 8; j = j + 1) {
+			notevalue = randomNumber(i * 100 - 70, i * 100 + 60)
+			$("#pad" + j + "freq").val(notevalue);
+		};
+	};
+};
+
+function randomNotesEvenSteven() {
+	
+	for (i = 1; i < 9 ; i = i + 1) {
+		for (j = i * 8 - 7; j <= i * 8; j = j + 1) {
+			min_range = Math.floor((j * 80 - 50) / i);
+			max_range = Math.floor((j * 80 + 60) / i);
+			notevalue = randomNumber(min_range, max_range)
+			$("#pad" + j + "freq").val(notevalue);
+		};
+	};	
+	
+	
+};
+
+</script>
+
+<! User Interface Layout - Set to resize and fit any sqreen>
+<style>
+
+div.step_light {
+
+	border-width:0px;
+	opacity:.5;
+	background-color:Gold;
+}
+
+div.column {
+	position:absolute;
+	border-width:0px;
+}
+
+div.pad {
+
+	border-width:1px;
+	border-style:solid;
+	border-color:black;
+	opacity:.5;
+	text-align: center;
+}
+
+input {
+
+	width: 80%;
+	
+}
+
+html, body{
+
+	overflow:hidden;
+	width: 100%;
+	height:100%;
+}
+
+
+</style>
+<div class="column" id="column1" style="width:12%; left:2%; height:80%">
+<div class="pad" id="pad1" style="background-color:red; height:10%;"> <input type="number" id="pad1freq" value="70"></div>
+<div class="pad" id="pad2" style="background-color:orange;  height:10%;"><input type="number" id="pad2freq" value="600"></div>
+<div class="pad" id="pad3" style="background-color:yellow;  height:10%;"><input type="number" id="pad3freq" value="700"></div>
+<div class="pad" id="pad4" style="background-color:green;  height:10%;"><input type="number" id="pad4freq" value="800"></div>
+<div class="pad" id="pad5" style="background-color:blue;  height:10%;"><input type="number" id="pad5freq" value="900"></div>
+<div class="pad" id="pad6" style="background-color:purple;  height:10%;"><input type="number" id="pad6freq" value="1000"></div>
+<div class="pad" id="pad7" style="background-color:pink;  height:10%;"><input type="number" id="pad7freq" value="1100"></div>
+<div class="pad" id="pad8" style="background-color:white;  height:10%;"><input type="number" id="pad8freq" value="200"></div>
+<div class="step_light" id="step_light1" style="height:10%"></div>
+<button type="button" id="play" style="width:100%; height:10%"> PLAY </button>
+</div>
+
+<div class="column" id="column2" style="width:12%; left:14% ;height:80%">
+<div class="pad" id="pad9" style="background-color:red; height:10%;"> <input type="number" id="pad9freq" value="70"></div>
+<div class="pad" id="pad10" style="background-color:orange;  height:10%;"><input type="number" id="pad10freq" value="600"></div>
+<div class="pad" id="pad11" style="background-color:yellow;  height:10%;"><input type="number" id="pad11freq" value="700"></div>
+<div class="pad" id="pad12" style="background-color:green;  height:10%;"><input type="number" id="pad12freq" value="800"></div>
+<div class="pad" id="pad13" style="background-color:blue;  height:10%;"><input type="number" id="pad13freq" value="900"></div>
+<div class="pad" id="pad14" style="background-color:purple;  height:10%;"><input type="number" id="pad14freq" value="1000"></div>
+<div class="pad" id="pad15" style="background-color:pink;  height:10%;"><input type="number" id="pad15freq" value="1100"></div>
+<div class="pad" id="pad16" style="background-color:white;  height:10%;"><input type="number" id="pad16freq" value="200"></div>
+<div class="step_light" id="step_light2" style="height:10%"></div>
+<button type="button" id="pause" style="width:100%; height:10%">PAUSE </button>
+</div>
+
+<div class="column" id="column3" style="width:12%; left:26% ;height:80%">
+<div class="pad" id="pad17" style="background-color:red; height:10%;"> <input type="number" id="pad17freq" value="70"></div>
+<div class="pad" id="pad18" style="background-color:orange;  height:10%;"><input type="number" id="pad18freq" value="600"></div>
+<div class="pad" id="pad19" style="background-color:yellow;  height:10%;"><input type="number" id="pad19freq" value="700"></div>
+<div class="pad" id="pad20" style="background-color:green;  height:10%;"><input type="number" id="pad20freq" value="800"></div>
+<div class="pad" id="pad21" style="background-color:blue;  height:10%;"><input type="number" id="pad21freq" value="900"></div>
+<div class="pad" id="pad22" style="background-color:purple;  height:10%;"><input type="number" id="pad22freq" value="1000"></div>
+<div class="pad" id="pad23" style="background-color:pink;  height:10%;"><input type="number" id="pad23freq" value="1100"></div>
+<div class="pad" id="pad24" style="background-color:white;  height:10%;"><input type="number" id="pad24freq" value="200"></div>
+<div class="step_light" id="step_light3" style="height:10%"></div>
+<button type="button" id="random" style="width:100%; height:10%">RANDOM STYLE 1</button>
+</div>
+
+<div class="column" id="column4" style="width:12%; left:38% ;height:80%">
+<div class="pad" id="pad25" style="background-color:red; height:10%;"> <input type="number" id="pad25freq" value="70"></div>
+<div class="pad" id="pad26" style="background-color:orange;  height:10%;"><input type="number" id="pad26freq" value="600"></div>
+<div class="pad" id="pad27" style="background-color:yellow;  height:10%;"><input type="number" id="pad27freq" value="700"></div>
+<div class="pad" id="pad28" style="background-color:green;  height:10%;"><input type="number" id="pad28freq" value="800"></div>
+<div class="pad" id="pad29" style="background-color:blue;  height:10%;"><input type="number" id="pad29freq" value="900"></div>
+<div class="pad" id="pad30" style="background-color:purple;  height:10%;"><input type="number" id="pad30freq" value="1000"></div>
+<div class="pad" id="pad31" style="background-color:pink;  height:10%;"><input type="number" id="pad31freq" value="1100"></div>
+<div class="pad" id="pad32" style="background-color:white;  height:10%;"><input type="number" id="pad32freq" value="200"></div>
+<div class="step_light" id="step_light4" style="height:10%"></div>
+<button type="button" id="randomEvenSteven" style="width:100%; height:10%">RANDOM STYLE 2</button>
+
+</div>
+
+<div class="column" id="column5" style="width:12%; left:50% ;height:80%">
+<div class="pad" id="pad33" style="background-color:red; height:10%;"> <input type="number" id="pad33freq" value="70"></div>
+<div class="pad" id="pad34" style="background-color:orange;  height:10%;"><input type="number" id="pad34freq" value="600"></div>
+<div class="pad" id="pad35" style="background-color:yellow;  height:10%;"><input type="number" id="pad35freq" value="700"></div>
+<div class="pad" id="pad36" style="background-color:green;  height:10%;"><input type="number" id="pad36freq" value="800"></div>
+<div class="pad" id="pad37" style="background-color:blue;  height:10%;"><input type="number" id="pad37freq" value="900"></div>
+<div class="pad" id="pad38" style="background-color:purple;  height:10%;"><input type="number" id="pad38freq" value="1000"></div>
+<div class="pad" id="pad39" style="background-color:pink;  height:10%;"><input type="number" id="pad39freq" value="1100"></div>
+<div class="pad" id="pad40" style="background-color:white;  height:10%;"><input type="number" id="pad40freq" value="200"></div>
+<div class="step_light" id="step_light5" style="height:10%"></div>
+</div>
+
+<div class="column" id="column6" style="width:12%; left:62% ;height:80%">
+<div class="pad" id="pad41" style="background-color:red; height:10%;"> <input type="number" id="pad41freq" value="70"></div>
+<div class="pad" id="pad42" style="background-color:orange;  height:10%;"><input type="number" id="pad42freq" value="600"></div>
+<div class="pad" id="pad43" style="background-color:yellow;  height:10%;"><input type="number" id="pad43freq" value="700"></div>
+<div class="pad" id="pad44" style="background-color:green;  height:10%;"><input type="number" id="pad44freq" value="800"></div>
+<div class="pad" id="pad45" style="background-color:blue;  height:10%;"><input type="number" id="pad45freq" value="900"></div>
+<div class="pad" id="pad46" style="background-color:purple;  height:10%;"><input type="number" id="pad46freq" value="1000"></div>
+<div class="pad" id="pad47" style="background-color:pink;  height:10%;"><input type="number" id="pad47freq" value="1100"></div>
+<div class="pad" id="pad48" style="background-color:white;  height:10%;"><input type="number" id="pad48freq" value="200"></div>
+<div class="step_light" id="step_light6" style="height:10%"></div>
+</div>
+
+<div class="column" id="column7" style="width:12%; left:74% ;height:80%">
+<div class="pad" id="pad49" style="background-color:red; height:10%;"> <input type="number" id="pad49freq" value="70"></div>
+<div class="pad" id="pad50" style="background-color:orange;  height:10%;"><input type="number" id="pad50freq" value="600"></div>
+<div class="pad" id="pad51" style="background-color:yellow;  height:10%;"><input type="number" id="pad51freq" value="700"></div>
+<div class="pad" id="pad52" style="background-color:green;  height:10%;"><input type="number" id="pad52freq" value="800"></div>
+<div class="pad" id="pad53" style="background-color:blue;  height:10%;"><input type="number" id="pad53freq" value="900"></div>
+<div class="pad" id="pad54" style="background-color:purple;  height:10%;"><input type="number" id="pad54freq" value="1000"></div>
+<div class="pad" id="pad55" style="background-color:pink;  height:10%;"><input type="number" id="pad55freq" value="1100"></div>
+<div class="pad" id="pad56" style="background-color:white;  height:10%;"><input type="number" id="pad56freq" value="200"></div>
+<div class="step_light" id="step_light7" style="height:10%"></div>
+<p> STEP DELAY ==> </p>
+</div>
+
+<div class="column" id="column8" style="width:12%; left:86% ;height:80%">
+<div class="pad" id="pad57" style="background-color:red; height:10%;"> <input type="number" id="pad57freq" value="70"></div>
+<div class="pad" id="pad58" style="background-color:orange;  height:10%;"><input type="number" id="pad58freq" value="600"></div>
+<div class="pad" id="pad59" style="background-color:yellow;  height:10%;"><input type="number" id="pad59freq" value="700"></div>
+<div class="pad" id="pad60" style="background-color:green;  height:10%;"><input type="number" id="pad60freq" value="800"></div>
+<div class="pad" id="pad61" style="background-color:blue;  height:10%;"><input type="number" id="pad61freq" value="900"></div>
+<div class="pad" id="pad62" style="background-color:purple;  height:10%;"><input type="number" id="pad62freq" value="1000"></div>
+<div class="pad" id="pad63" style="background-color:pink;  height:10%;"><input type="number" id="pad63freq" value="1100"></div>
+<div class="pad" id="pad64" style="background-color:white;  height:10%;"><input type="number" id="pad64freq" value="200"></div>
+<div class="step_light" id="step_light8" style="height:10%"></div>
+<input type="number" id="tempoinput" value="160" style ="height:10%; width:100%">
+</div>
+
+
+</body>
+</html>
